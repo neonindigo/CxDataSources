@@ -17,13 +17,13 @@ extension CxTableViewWrapper {
     public func items<Section: SectionModelType>(
         dataSource: CxTableViewSectionedReloadDataSource<Section>
     ) -> (AnyPublisher<[Section], Never>) -> AnyCancellable {
-        fatalError("stub")
+        dataSource.bind(to: tableView)
     }
 
     public func items<Section: AnimatableSectionModelType>(
         dataSource: CxTableViewSectionedAnimatedDataSource<Section>
     ) -> (AnyPublisher<[Section], Never>) -> AnyCancellable {
-        fatalError("stub")
+        dataSource.bind(to: tableView)
     }
 }
 #endif
