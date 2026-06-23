@@ -3,8 +3,7 @@ import Differentiator
 
 extension Publisher where Failure == Never {
     /// Binds this publisher to a table view via the given data source.
-    /// Returns the AnyCancellable — store it to keep the binding alive.
-    @discardableResult  // intentional: caller may choose to store or let it fire-and-forget
+    /// Store the returned `AnyCancellable` — dropping it cancels the binding immediately.
     public func bind(
         to binding: (Self) -> AnyCancellable
     ) -> AnyCancellable {

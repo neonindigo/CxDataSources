@@ -9,25 +9,29 @@ open class TableViewSectionedDataSource<Section: SectionModelType>: NSObject, UI
     public typealias TitleForFooterInSection = (TableViewSectionedDataSource<Section>, Int) -> String?
     public typealias CanEditRowAtIndexPath = (TableViewSectionedDataSource<Section>, IndexPath) -> Bool
     public typealias CanMoveRowAtIndexPath = (TableViewSectionedDataSource<Section>, IndexPath) -> Bool
+    public typealias MoveItem = (TableViewSectionedDataSource<Section>, IndexPath, IndexPath) -> Void
 
     public var configureCell: ConfigureCell
     public var titleForHeaderInSection: TitleForHeaderInSection
     public var titleForFooterInSection: TitleForFooterInSection
     public var canEditRowAtIndexPath: CanEditRowAtIndexPath
     public var canMoveRowAtIndexPath: CanMoveRowAtIndexPath
+    public var moveItem: MoveItem
 
     public init(
         configureCell: @escaping ConfigureCell,
         titleForHeaderInSection: @escaping TitleForHeaderInSection = { _, _ in nil },
         titleForFooterInSection: @escaping TitleForFooterInSection = { _, _ in nil },
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
-        canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false }
+        canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false },
+        moveItem: @escaping MoveItem = { _, _, _ in }
     ) {
         self.configureCell = configureCell
         self.titleForHeaderInSection = titleForHeaderInSection
         self.titleForFooterInSection = titleForFooterInSection
         self.canEditRowAtIndexPath = canEditRowAtIndexPath
         self.canMoveRowAtIndexPath = canMoveRowAtIndexPath
+        self.moveItem = moveItem
     }
 
     open var sectionModels: [Section] = []
@@ -79,7 +83,7 @@ open class TableViewSectionedDataSource<Section: SectionModelType>: NSObject, UI
     }
 
     public func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        // stub
+        moveItem(self, sourceIndexPath, destinationIndexPath)
     }
 }
 #endif
