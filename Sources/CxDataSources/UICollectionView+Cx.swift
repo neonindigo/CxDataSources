@@ -17,13 +17,13 @@ extension CxCollectionViewWrapper {
     public func items<Section: SectionModelType>(
         dataSource: CxCollectionViewSectionedReloadDataSource<Section>
     ) -> (AnyPublisher<[Section], Never>) -> AnyCancellable {
-        fatalError("stub")
+        dataSource.bind(to: collectionView)
     }
 
     public func items<Section: AnimatableSectionModelType>(
         dataSource: CxCollectionViewSectionedAnimatedDataSource<Section>
     ) -> (AnyPublisher<[Section], Never>) -> AnyCancellable {
-        fatalError("stub")
+        dataSource.bind(to: collectionView)
     }
 }
 #endif
